@@ -1,5 +1,7 @@
 # Alpha Blending
 
+<img src="img/result.jpg">
+
 ## Introduction
 
 This projects is part of I.R.Dedinskiy programming course (1st year MIPT DREC). \
