@@ -38,7 +38,7 @@ Note that in our array $\alpha$ has a 0 - 255 value, so we must normalize it (>>
 
 To reduce the impact of SFML library, we will calculate the resulting value of each couple of pixels for 1000 times.
 
-## Optimisation ideas
+## Optimization ideas
 
 Our calculations for each couple of pixels are absolutely the same and completely independent. So why don't we calculate the resultaing values simultaneously?
 Here the SIMD instructions come to the rescue. If you are not familiar with SIMD, check the following link: \
@@ -78,11 +78,11 @@ Speed growth factor $k_1$ = $\frac{FPS_{AVX}}{FPS_{NO-AVX}}$
 
 | AVX\NOAVX | no flags  | -O1  | -O2  | -O3  | -Ofast |
 |-----------|-----------|------|------|------|--------|
-| no flags  | 0.65      | 0.24 | 0.20 | 0.20 | 0.20   |
-| -O1       | 16.24     | 5.88 | 5.05 | 5.08 | 5.08   |
-| -O2       | 17.13     | 6.2  | 5.32 | 5.36 | 5.36   |
-| -O3       | 17.26     | 6.25 | 5.37 | 5.40 | 5.40   |
-| -Ofast    | 17.26     | 6.25 | 5.37 | 5.40 | 5.40   |
+| **no flags**  | **0.65**  | 0.24 | 0.20 | 0.20 | 0.20   |
+| **-O1**       | 16.24     |**5.88**| 5.05 | 5.08 | 5.08   |
+| **-O2**       | 17.13     | 6.2  | **5.32** | 5.36 | 5.36   |
+| **-O3**       | 17.26     | 6.25 | 5.37 | **5.40** | 5.40   |
+| **-Ofast**    | 17.26     | 6.25 | 5.37 | 5.40 | **5.40**   |
 
 
 As we can see, the best speed growth factor $k_1$ with the same flags was achieved with "-O1" flag (5.88).
@@ -97,8 +97,18 @@ Speed growth factor $k_2$ = $\frac{FPS_{flag}}{FPS_{no-flag}}$
 | -O1      | 2.76          | 24.90      |
 | -O2      | 3.22          | 26.27      |
 | -O3      | 3.20          | 26.47      |
-| -Ofast   | 3.19          | 26.47      |
+| -Ofast   | 3.20          | 26.47      |
 
+As we can see, the best speed growth factor $k_2$ for NO_AVX is 3.22 (with "-O2"). In the same time $k_1$ for "-O2" is 5.32.
 
+## Conclusion
+
+We have reached the highest performance combining SIMD instructions and compiler optimization. \
+Worth noting that SIMD implemetation is not working fine without compiler optimization (without any flags $k_1$ = 0.65 < 1). The reason of such low performance is inefficient usage of SIMD registers. We can clearly see the difference between optimized and unoptimized code using \
+https://godbolt.org/ (very useful site to look through your assembly listing) 
+
+Therefore to get the best performance i recommend using both SIMD instructions and compiler optimization.
+
+ 
 
 
