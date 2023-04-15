@@ -73,7 +73,7 @@ FPS (frames per second) for each tested configuration.
 | -O3      | 14.7        | 79.4     |
 | -Ofast   | 14.7        | 79.4     |
 
-Speed growth factor k = $\frac{FPS_{AVX}}{FPS_{NO-AVX}}$
+Speed growth factor $k_1$ = $\frac{FPS_{AVX}}{FPS_{NO-AVX}}$
 
 
 | AVX\NOAVX | no flags  | -O1  | -O2  | -O3  | -Ofast |
@@ -85,7 +85,20 @@ Speed growth factor k = $\frac{FPS_{AVX}}{FPS_{NO-AVX}}$
 | -Ofast    | 17.26     | 6.25 | 5.37 | 5.40 | 5.40   |
 
 
-As we can see, the best speed growth factor with the same flags was achieved with "-O1" flag (5.88).
+As we can see, the best speed growth factor $k_1$ with the same flags was achieved with "-O1" flag (5.88).
 
 The best FPS was achieved with AVX and "-O3"  /  "-Ofast" flags. Speed growth factor here is 5.40.
+
+Speed growth factor $k_2$ = $\frac{FPS_{flag}}{FPS_{no-flag}}$
+
+| flags    | NO AVX, $k_2$ | AVX, $k_2$ |
+|----------|---------------|------------|
+| no flags | 1             | 1          |
+| -O1      | 2.76          | 24.90      |
+| -O2      | 3.22          | 26.27      |
+| -O3      | 3.20          | 26.47      |
+| -Ofast   | 3.19          | 26.47      |
+
+
+
 
